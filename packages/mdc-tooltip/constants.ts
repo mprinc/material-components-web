@@ -27,13 +27,20 @@ enum CssClasses {
   SHOWING_TRANSITION = 'mdc-tooltip--showing-transition',
   HIDE = 'mdc-tooltip--hide',
   HIDE_TRANSITION = 'mdc-tooltip--hide-transition',
+  MULTILINE_TOOLTIP = 'mdc-tooltip--multiline',
 }
+
+const styleValues = {};
 
 const numbers = {
   BOUNDED_ANCHOR_GAP: 4,
   UNBOUNDED_ANCHOR_GAP: 8,
   MIN_VIEWPORT_TOOLTIP_THRESHOLD: 32,
   HIDE_DELAY_MS: 600,
+  // LINT.IfChange(tooltip-dimensions)
+  MIN_HEIGHT: 24,
+  MAX_WIDTH: 200,
+  // LINT.ThenChange(_tooltip.scss:tooltip-dimensions)
 };
 
 const events = {
@@ -65,4 +72,12 @@ enum AnchorBoundaryType {
   UNBOUNDED = 1,
 }
 
-export {CssClasses, numbers, events, XPosition, AnchorBoundaryType, YPosition};
+export {
+  CssClasses,
+  styleValues,
+  numbers,
+  events,
+  XPosition,
+  AnchorBoundaryType,
+  YPosition
+};

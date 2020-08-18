@@ -31,6 +31,8 @@
 $background-color: rgba(black, theme-color.text-emphasis(medium));
 $border-radius: small;
 $label-color: text-primary-on-dark;
+$word-break-default: break-word;
+$word-break-ie11-fallback: break-all;
 
 /// Sets the border-radius for the tooltip element.
 /// @param {Number | String} $radius Desired border radius value, accepts either
@@ -45,6 +47,29 @@ $label-color: text-primary-on-dark;
 ) {
   .mdc-tooltip__surface {
     @include shape-mixins.radius($radius, $rtl-reflexive, $query: $query);
+  }
+}
+
+// Sets the word-break property for the tooltip label. Users of IE11 can
+// overwrite the fallback if their tooltip labels will never contain long
+// strings without spaces or hyphens.
+// @param {String} $value
+// @param {String} $fallbackValue A fallback value to be set for word-break.
+//    This can be used to cover IE11 which does not support "break-word".
+@mixin word-break(
+  $value,
+  $fallbackValue: null,
+  $query: feature-targeting.all()
+) {
+  $feat-structure: feature-targeting.create-target($query, structure);
+
+  @include feature-targeting.targets($feat-structure) {
+    .mdc-tooltip__surface {
+      @if ($fallbackValue) {
+        word-break: $fallbackValue;
+      }
+      word-break: $value;
+    }
   }
 }
 
